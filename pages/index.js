@@ -1,6 +1,6 @@
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
-import { AlurakutMenu } from '../src/components/AluraCommons';
+import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations/style';
 
 function Sidebar({ user }) {
@@ -41,7 +41,10 @@ export default function Home() {
 			<Main>
 				<Sidebar user={githubUser}></Sidebar>
 				<div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
-					<Box>Bem vindo(a)</Box>
+					<Box>
+						<h1 className="title">Bem vindo(a)</h1>
+						<OrkutNostalgicIconSet />
+					</Box>
 				</div>
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>

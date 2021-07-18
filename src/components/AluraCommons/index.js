@@ -29,10 +29,7 @@ export function AlurakutMenu({ githubUser }) {
 						{ name: 'Amigos', slug: '/amigos' },
 						{ name: 'Comunidades', slug: '/comunidades' },
 					].map((menuItem) => (
-						<Link
-							key={`key__${menuItem.name.toLocaleLowerCase()}`}
-							href={`${menuItem.slug.toLocaleLowerCase()}`}
-						>
+						<Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={`${menuItem.slug.toLocaleLowerCase()}`}>
 							{menuItem.name}
 						</Link>
 					))}
@@ -266,7 +263,7 @@ export function OrkutNostalgicIconSet(props) {
 							className="OrkutNostalgicIconSet__iconSample"
 							src={`https://alurakut.vercel.app/icons/${icon}.svg`}
 						/>
-						{props[slug] ? props[slug] : 0}
+						{props[slug] ? props[slug] : 8}
 					</span>
 				</li>
 			))}
@@ -275,7 +272,7 @@ export function OrkutNostalgicIconSet(props) {
 				{ name: 'Legal', slug: 'legal', icon: 'cool' },
 				{ name: 'Sexy', slug: 'sexy', icon: 'heart' },
 			].map(({ name, slug, icon }) => {
-				const total = props[slug] ? props[slug] : 2;
+				const total = props[slug] ? props[slug] : 3;
 				return (
 					<li key={`orkut__icon_set__${slug}`}>
 						<span className="OrkutNostalgicIconSet__title">{name}</span>
