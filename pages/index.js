@@ -1,5 +1,6 @@
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
+import { AlurakutMenu } from '../src/components/AluraCommons';
 
 function Sidebar({ user }) {
 	return (
@@ -13,14 +14,17 @@ function Sidebar({ user }) {
 export default function Home() {
 	const githubUser = 'RenanPaixao';
 	return (
-		<Main>
-			<Sidebar user={githubUser}></Sidebar>
-			<div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
-				<Box>Bem vindo(a)</Box>
-			</div>
-			<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-				<Box>Friends</Box>
-			</div>
-		</Main>
+		<>
+			<AlurakutMenu githubUser={githubUser} />
+			<Main>
+				<Sidebar user={githubUser}></Sidebar>
+				<div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
+					<Box>Bem vindo(a)</Box>
+				</div>
+				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+					<Box>Friends</Box>
+				</div>
+			</Main>
+		</>
 	);
 }
