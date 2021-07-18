@@ -20,8 +20,8 @@ function AddRelations() {
 			<ul>
 				{relations.map((element) => {
 					return (
-						<li>
-							<a href={`/users/${element}`} key={element}>
+						<li key={element}>
+							<a href={`/users/${element}`}>
 								<img src={`https://github.com/${element}.png`}></img>
 								<span>{element}</span>
 							</a>
