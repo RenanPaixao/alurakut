@@ -1,6 +1,7 @@
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
 import { AlurakutMenu } from '../src/components/AluraCommons';
+import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations/style';
 
 function Sidebar({ user }) {
 	return (
@@ -11,6 +12,27 @@ function Sidebar({ user }) {
 		</div>
 	);
 }
+function AddRelations() {
+	const relations = ['omariosouto', 'filipedeschamps', 'marcobrunodev'];
+	return (
+		<>
+			<h2 className="smallTitle">Relações</h2>
+			<ul>
+				{relations.map((element) => {
+					return (
+						<li>
+							<a href={`/users/${element}`} key={element}>
+								<img src={`https://github.com/${element}.png`}></img>
+								<span>{element}</span>
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+		</>
+	);
+}
+
 export default function Home() {
 	const githubUser = 'RenanPaixao';
 	return (
@@ -22,7 +44,9 @@ export default function Home() {
 					<Box>Bem vindo(a)</Box>
 				</div>
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
-					<Box>Friends</Box>
+					<ProfileRelationsBoxWrapper>
+						<AddRelations />
+					</ProfileRelationsBoxWrapper>
 				</div>
 			</Main>
 		</>
