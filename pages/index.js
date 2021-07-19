@@ -7,7 +7,7 @@ function Sidebar({ user }) {
 	return (
 		<div className="profileArea" style={{ gridArea: 'profileArea' }}>
 			<Box>
-				<img src={`https://github.com/${user}.png`} style={{ borderRadius: '8px;' }}></img>
+				<img src={`https://github.com/${user}.png`} style={{ borderRadius: '8px' }}></img>
 			</Box>
 		</div>
 	);
