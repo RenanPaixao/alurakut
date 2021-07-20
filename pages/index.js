@@ -54,7 +54,14 @@ export default function Home() {
 					<Box>
 						<h2 className="subtitle">O que deseja fazer?</h2>
 						<hr />
-						<form>
+						<form
+							onSubmit={(e) => {
+								e.preventDefault();
+								const data = new FormData(e.target);
+
+								const community = { title: data.get('title'), image: data.get('image') };
+							}}
+						>
 							<input
 								type="text"
 								name="title"
