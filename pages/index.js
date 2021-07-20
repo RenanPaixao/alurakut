@@ -51,6 +51,25 @@ export default function Home() {
 						<h1 className="title">Bem vindo(a)</h1>
 						<OrkutNostalgicIconSet />
 					</Box>
+					<Box>
+						<h2 className="subtitle">O que deseja fazer?</h2>
+						<hr />
+						<form>
+							<input
+								type="text"
+								name="title"
+								placeholder="Qual será o nome da sua comunidade?"
+								aria-label="Qual será o nome da sua comunidade?"
+							></input>
+							<input
+								name="image"
+								aria-label="Qual URL usaremos de capa?"
+								placeholder="Qual URL usaremos de capa?"
+								type="text"
+							></input>
+							<button>Criar comunidade</button>
+						</form>
+					</Box>
 				</div>
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>
