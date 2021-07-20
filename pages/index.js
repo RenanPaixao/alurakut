@@ -1,6 +1,6 @@
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
-import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
+import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations/style';
 
 function Sidebar({ user }) {
@@ -8,6 +8,12 @@ function Sidebar({ user }) {
 		<div className="profileArea" style={{ gridArea: 'profileArea' }}>
 			<Box>
 				<img src={`https://github.com/${user}.png`} style={{ borderRadius: '8px' }}></img>
+				<hr />
+				<a href={`https://github.com/${user}`} className="boxLink">
+					@{user}
+					<hr />
+				</a>
+				<AlurakutProfileSidebarMenuDefault />
 			</Box>
 		</div>
 	);
@@ -16,7 +22,7 @@ function AddRelations() {
 	const relations = ['omariosouto', 'filipedeschamps', 'marcobrunodev'];
 	return (
 		<>
-			<h2 className="smallTitle">Relações</h2>
+			<h2 className="smallTitle">Afinidades</h2>
 			<ul>
 				{relations.map((element) => {
 					return (
