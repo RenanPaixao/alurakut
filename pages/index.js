@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
@@ -18,18 +19,17 @@ function Sidebar({ user }) {
 		</div>
 	);
 }
-function AddRelations() {
-	const relations = ['omariosouto', 'filipedeschamps', 'marcobrunodev'];
+function AddRelations({ req, title }) {
 	return (
 		<>
-			<h2 className="smallTitle">Afinidades</h2>
+			<h2 className="smallTitle">{title}</h2>
 			<ul>
-				{relations.map((element) => {
+				{req.map((element) => {
 					return (
-						<li key={element}>
-							<a href={`/users/${element}`}>
-								<img src={`https://github.com/${element}.png`}></img>
-								<span>{element}</span>
+						<li key={element.login}>
+							<a href={`/users/${element.login}`}>
+								<img src={`https://github.com/${element.login}.png`}></img>
+								<span>{element.login}</span>
 							</a>
 						</li>
 					);
@@ -41,6 +41,17 @@ function AddRelations() {
 
 export default function Home() {
 	const githubUser = 'RenanPaixao';
+	const [affinities, setAffinities] = useState(false);
+
+	useEffect(() => {
+		fetch(`https://api.github.com/users/${githubUser}/followers`)
+			.then((res) => {
+				return res.json();
+			})
+			.then((res) => setAffinities(res))
+			.catch((e) => console.error(e));
+	}, []);
+
 	return (
 		<>
 			<AlurakutMenu githubUser={githubUser} />
@@ -80,7 +91,7 @@ export default function Home() {
 				</div>
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>
-						<AddRelations />
+						{affinities ? <AddRelations req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
 					</ProfileRelationsBoxWrapper>
 				</div>
 			</Main>
