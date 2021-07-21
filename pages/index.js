@@ -6,7 +6,7 @@ import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations/style
 function Sidebar({ user }) {
 	return (
 		<div className="profileArea" style={{ gridArea: 'profileArea' }}>
-			<Box>
+			<Box as="aside">
 				<img src={`https://github.com/${user}.png`} style={{ borderRadius: '8px' }}></img>
 				<hr />
 				<a href={`https://github.com/${user}`} className="boxLink">
