@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
-import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations/style';
+import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations';
+
+const URL = 'https://api.github.com/users';
 
 function Sidebar({ user }) {
 	return (
@@ -40,15 +42,19 @@ function AddRelations({ req, title }) {
 }
 
 export default function Home() {
-	const githubUser = 'RenanPaixao';
 	const [affinities, setAffinities] = useState(false);
+	const [more, setMore] = useState(1);
+	const githubUser = 'RenanPaixao';
+	const URL_PAG = `${URL}/${githubUser}/followers?per_page=6&page=${more}`;
 
 	useEffect(() => {
-		fetch(`https://api.github.com/users/${githubUser}/followers`)
+		fetch(URL_PAG)
 			.then((res) => {
 				return res.json();
 			})
-			.then((res) => setAffinities(res))
+			.then((res) => {
+				setAffinities(res);
+			})
 			.catch((e) => console.error(e));
 	}, []);
 
@@ -92,6 +98,12 @@ export default function Home() {
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>
 						{affinities ? <AddRelations req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
+						<hr />
+						{affinities && (
+							<a href="/affinities" style={{ textDecoration: 'none', color: '#308BC5' }}>
+								Ver mais...
+							</a>
+						)}
 					</ProfileRelationsBoxWrapper>
 				</div>
 			</Main>
