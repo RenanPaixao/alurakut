@@ -40,7 +40,7 @@ export default function Home() {
 				query: `{ allCommunities {
 					id
 					title
-					imageurl
+					image
 				}}`,
 			}),
 		})
@@ -71,7 +71,14 @@ export default function Home() {
 								e.preventDefault();
 								const data = new FormData(e.target);
 
-								const newCommunity = { title: data.get('title'), image: data.get('image') };
+								if (data.get('title').length === 0 || data.get('image').length === 0) {
+									alert('Preencha todos os campos!');
+								} else {
+									setCommunities([
+										...communities,
+										{ id: new Date().toISOString(), title: data.get('title'), image: data.get('image') },
+									]);
+								}
 							}}
 						>
 							<input

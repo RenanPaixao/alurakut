@@ -1,7 +1,10 @@
 export function WrapperAffinities({ req, title }) {
 	return (
 		<>
-			<h2 className="smallTitle">{title}</h2>
+			<h2 className="smallTitle">
+				{title}
+				{' (' + req.length + ')'}
+			</h2>
 			<ul>
 				{req.map((element) => {
 					return (
@@ -21,13 +24,16 @@ export function WrapperAffinities({ req, title }) {
 export function WrapperCommunities({ req, title }) {
 	return (
 		<>
-			<h2 className="smallTitle">{title}</h2>
+			<h2 className="smallTitle">
+				{title}
+				{' (' + req.length + ')'}
+			</h2>
 			<ul>
-				{req.map((element) => {
+				{req.slice(0, 6).map((element) => {
 					return (
 						<li key={element.id}>
 							<a href={`/users/${element.title}`}>
-								<img src={element.imageurl}></img>
+								<img src={element.image}></img>
 								<span>{element.title}</span>
 							</a>
 						</li>
