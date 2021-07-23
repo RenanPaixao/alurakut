@@ -1,49 +1,19 @@
 import { useState, useEffect } from 'react';
 import Box from '../src/components/Box';
 import Main from '../src/components/Main';
-import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
+
+import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/components/AluraCommons';
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations';
 
-const URL = 'https://api.github.com/users';
+import Sidebar from '../src/components/Sidebar';
+import AddAffinities from '../src/components/AddAffinities';
 
-function Sidebar({ user }) {
-	return (
-		<div className="profileArea" style={{ gridArea: 'profileArea' }}>
-			<Box as="aside">
-				<img src={`https://github.com/${user}.png`} style={{ borderRadius: '8px' }}></img>
-				<hr />
-				<a href={`https://github.com/${user}`} className="boxLink">
-					@{user}
-					<hr />
-				</a>
-				<AlurakutProfileSidebarMenuDefault />
-			</Box>
-		</div>
-	);
-}
-function AddRelations({ req, title }) {
-	return (
-		<>
-			<h2 className="smallTitle">{title}</h2>
-			<ul>
-				{req.map((element) => {
-					return (
-						<li key={element.login}>
-							<a href={`/users/${element.login}`}>
-								<img src={`https://github.com/${element.login}.png`}></img>
-								<span>{element.login}</span>
-							</a>
-						</li>
-					);
-				})}
-			</ul>
-		</>
-	);
-}
+const URL = 'https://api.github.com/users';
 
 export default function Home() {
 	const [affinities, setAffinities] = useState(false);
 	const [more, setMore] = useState(1);
+
 	const githubUser = 'RenanPaixao';
 	const URL_PAG = `${URL}/${githubUser}/followers?per_page=6&page=${more}`;
 
@@ -97,7 +67,7 @@ export default function Home() {
 				</div>
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>
-						{affinities ? <AddRelations req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
+						{affinities ? <AddAffinities req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
 						<hr />
 						{affinities && (
 							<a href="/affinities" style={{ textDecoration: 'none', color: '#308BC5' }}>
