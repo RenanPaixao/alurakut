@@ -6,7 +6,7 @@ export function WrapperAffinities({ req, title }) {
 				{req.map((element) => {
 					return (
 						<li key={element.login}>
-							<a href={`/users/${element.login}`}>
+							<a href={`https://github.com/${element.login}`} target="_blank">
 								<img src={`https://github.com/${element.login}.png`}></img>
 								<span>{element.login}</span>
 							</a>

@@ -49,7 +49,8 @@ export default function Home() {
 			})
 			.then((res) => {
 				setCommunities(res.data.allCommunities);
-			});
+			})
+			.catch((e) => console.error(e));
 	}, []);
 
 	return (
