@@ -16,19 +16,34 @@ export default function Home() {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const githubUser = 'RenanPaixao';
+	let followersQtt;
 	const URL_PAG = `${URL}/${githubUser}/followers?per_page=6&page=${currentPage}`;
 
 	useEffect(() => {
 		const API_TOKEN = 'b2496fc5f221e2a2d5c2a7cd395a03';
+
+		//get followers from api
 		fetch(URL_PAG)
 			.then((res) => {
 				return res.json();
 			})
-			.then((res) => {
-				setAffinities(res);
+			.then(async (res) => {
+				//get qtt of followers from api
+				const followersQtt = await fetch(`${URL}/${githubUser}`)
+					.then((res) => {
+						return res.json();
+					})
+					.then((res) => {
+						return res.followers;
+					});
+
+				//join responses and change affinities
+				const newAffinities = [{ qtt: followersQtt }, ...res];
+				setAffinities(newAffinities);
 			})
 			.catch((e) => console.error(e));
 
+		//get communities from DATO
 		fetch('https://graphql.datocms.com/', {
 			method: 'POST',
 			headers: {
@@ -100,7 +115,11 @@ export default function Home() {
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>
 						<WrapperCommunities req={communities} title="Comunidades" />
-						{affinities ? <WrapperAffinities req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
+						{affinities ? (
+							<WrapperAffinities req={affinities} title="Afinidades" qtt={followersQtt} />
+						) : (
+							'CARREGANDO...'
+						)}
 						<hr />
 						{affinities && (
 							<a href="/affinities" style={{ textDecoration: 'none', color: '#308BC5' }}>

@@ -3,10 +3,10 @@ export function WrapperAffinities({ req, title }) {
 		<>
 			<h2 className="smallTitle">
 				{title}
-				{' (' + req.length + ')'}
+				{` (${req[0].qtt})`}
 			</h2>
 			<ul>
-				{req.map((element) => {
+				{req.slice(1, 7).map((element) => {
 					return (
 						<li key={element.login}>
 							<a href={`https://github.com/${element.login}`} target="_blank">
