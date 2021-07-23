@@ -6,18 +6,20 @@ import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/components/AluraComm
 import ProfileRelationsBoxWrapper from '../src/components/ProfileRelations';
 
 import Sidebar from '../src/components/Sidebar';
-import AddAffinities from '../src/components/AddAffinities';
+import { WrapperAffinities, WrapperCommunities } from '../src/components/WrapperRelations';
 
 const URL = 'https://api.github.com/users';
 
 export default function Home() {
 	const [affinities, setAffinities] = useState(false);
-	const [more, setMore] = useState(1);
+	const [communities, setCommunities] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	const githubUser = 'RenanPaixao';
-	const URL_PAG = `${URL}/${githubUser}/followers?per_page=6&page=${more}`;
+	const URL_PAG = `${URL}/${githubUser}/followers?per_page=6&page=${currentPage}`;
 
 	useEffect(() => {
+		const API_TOKEN = 'b2496fc5f221e2a2d5c2a7cd395a03';
 		fetch(URL_PAG)
 			.then((res) => {
 				return res.json();
@@ -26,6 +28,28 @@ export default function Home() {
 				setAffinities(res);
 			})
 			.catch((e) => console.error(e));
+
+		fetch('https://graphql.datocms.com/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: `Bearer ${API_TOKEN}`,
+			},
+			body: JSON.stringify({
+				query: `{ allCommunities {
+					id
+					title
+					imageurl
+				}}`,
+			}),
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((res) => {
+				setCommunities(res.data.allCommunities);
+			});
 	}, []);
 
 	return (
@@ -46,7 +70,7 @@ export default function Home() {
 								e.preventDefault();
 								const data = new FormData(e.target);
 
-								const community = { title: data.get('title'), image: data.get('image') };
+								const newCommunity = { title: data.get('title'), image: data.get('image') };
 							}}
 						>
 							<input
@@ -67,7 +91,8 @@ export default function Home() {
 				</div>
 				<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
 					<ProfileRelationsBoxWrapper>
-						{affinities ? <AddAffinities req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
+						<WrapperCommunities req={communities} title="Comunidades" />
+						{affinities ? <WrapperAffinities req={affinities} title="Afinidades" /> : 'CARREGANDO...'}
 						<hr />
 						{affinities && (
 							<a href="/affinities" style={{ textDecoration: 'none', color: '#308BC5' }}>
